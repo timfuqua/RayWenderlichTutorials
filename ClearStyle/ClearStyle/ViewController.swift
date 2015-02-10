@@ -10,7 +10,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate {
+class ViewController: UIViewController {
 
   @IBOutlet weak var tableView: UITableView!
   var toDoItems = [ToDoItem]()
@@ -18,10 +18,23 @@ class ViewController: UIViewController, UITableViewDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    initializeTableView()
+    initializeTableStyling()
+    initializeToDoList()
+  }
+  
+  private func initializeTableView() {
     tableView.dataSource = self
     tableView.delegate = self
-    tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
-
+    tableView.registerClass(TableViewCell.self, forCellReuseIdentifier: "cell")
+  }
+  
+  private func initializeTableStyling() {
+    tableView.separatorStyle = .None
+    tableView.rowHeight = 50.0
+  }
+  
+  private func initializeToDoList() {
     if toDoItems.count > 0 {
       return
     }
@@ -40,9 +53,16 @@ class ViewController: UIViewController, UITableViewDelegate {
     toDoItems.append(ToDoItem(text: "get a hair cut"))
   }
 
+  private func colorForIndex(index: Int) -> UIColor {
+    let itemCount = toDoItems.count - 1
+    let val = (CGFloat(index) / CGFloat(itemCount)) * 0.6
+    return UIColor(red: 1.0, green: val, blue: 0.0, alpha: 1.0)
+  }
+  
 }
 
 extension ViewController: UITableViewDataSource {
+  
   func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1
   }
@@ -52,9 +72,20 @@ extension ViewController: UITableViewDataSource {
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as TableViewCell
+    cell.textLabel?.backgroundColor = UIColor.clearColor()
     let item = toDoItems[indexPath.row]
     cell.textLabel?.text = item.text
     return cell
   }
+  
+}
+
+extension ViewController: UITableViewDelegate {
+  
+  func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell,
+    forRowAtIndexPath indexPath: NSIndexPath) {
+      cell.backgroundColor = colorForIndex(indexPath.row)
+  }
+  
 }
