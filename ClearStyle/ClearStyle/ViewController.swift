@@ -75,10 +75,8 @@ extension ViewController: UITableViewDataSource {
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as TableViewCell
     cell.selectionStyle = UITableViewCellSelectionStyle.None
-//    cell.textLabel?.backgroundColor = UIColor.clearColor()
     
     let item = toDoItems[indexPath.row]
-//    cell.textLabel?.text = item.text
     
     cell.delegate = self
     cell.toDoItem = item

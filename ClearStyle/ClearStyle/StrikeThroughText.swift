@@ -11,9 +11,14 @@ import QuartzCore
 
 class StrikeThroughText: UILabel {
   
-  let strikeThroughLayer: CALayer
+  lazy var strikeThroughLayer: CALayer = {
+    let layer = CALayer()
+    layer.backgroundColor = UIColor.whiteColor().CGColor
+    layer.hidden = true
+    return layer
+  }()
   
-  var shouldStrikeThrough: Bool {
+  var shouldStrikeThrough: Bool = false {
     didSet {
       strikeThroughLayer.hidden = !shouldStrikeThrough
       if shouldStrikeThrough {
@@ -27,12 +32,8 @@ class StrikeThroughText: UILabel {
   }
   
   override init(frame: CGRect) {
-    strikeThroughLayer = CALayer()
-    strikeThroughLayer.backgroundColor = UIColor.whiteColor().CGColor
-    strikeThroughLayer.hidden = true
-    shouldStrikeThrough = false
-    
     super.init(frame: frame)
+    
     layer.addSublayer(strikeThroughLayer)
   }
   

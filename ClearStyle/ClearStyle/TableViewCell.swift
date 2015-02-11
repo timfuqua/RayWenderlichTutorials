@@ -21,10 +21,40 @@ class TableViewCell: UITableViewCell {
   var deleteOnDragRelease = false
   var completeOnDragRelease = false
   
-  var tickLabel: UILabel, crossLabel: UILabel
+  lazy var tickLabel: UILabel = {
+    let label = UILabel(frame: CGRect.nullRect)
+    label.textColor = UIColor.whiteColor()
+    label.font = UIFont.boldSystemFontOfSize(32.0)
+    label.backgroundColor = UIColor.clearColor()
+    label.text = "\u{2713}"
+    label.textAlignment = .Right
+    return label
+    }()
   
-  let label: StrikeThroughText
-  let itemCompleteLayer = CALayer()
+  lazy var crossLabel: UILabel = {
+    let label = UILabel(frame: CGRect.nullRect)
+    label.textColor = UIColor.whiteColor()
+    label.font = UIFont.boldSystemFontOfSize(32.0)
+    label.backgroundColor = UIColor.clearColor()
+    label.text = "\u{2717}"
+    label.textAlignment = .Left
+    return label
+    }()
+  
+  lazy var label: StrikeThroughText = {
+    let label = StrikeThroughText(frame: CGRect.nullRect)
+    label.textColor = UIColor.whiteColor()
+    label.font = UIFont.boldSystemFontOfSize(16)
+    label.backgroundColor = UIColor.clearColor()
+    return label
+    }()
+  
+  lazy var itemCompleteLayer: CALayer = {
+    let itemCompleteLayer = CALayer(layer: self.layer)
+    itemCompleteLayer.backgroundColor = UIColor(red: 0.0, green: 0.6, blue: 0.0, alpha: 1.0).CGColor
+    itemCompleteLayer.hidden = true
+    return itemCompleteLayer
+    }()
   
   var delegate: TableViewCellDelegate?
   var toDoItem: ToDoItem? {
@@ -40,27 +70,7 @@ class TableViewCell: UITableViewCell {
   }
   
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-    label = StrikeThroughText(frame: CGRect.nullRect)
-    label.textColor = UIColor.whiteColor()
-    label.font = UIFont.boldSystemFontOfSize(16)
-    label.backgroundColor = UIColor.clearColor()
     
-    func createCueLabel() -> UILabel {
-      let label = UILabel(frame: CGRect.nullRect)
-      label.textColor = UIColor.whiteColor()
-      label.font = UIFont.boldSystemFontOfSize(32.0)
-      label.backgroundColor = UIColor.clearColor()
-      return label
-    }
-    
-    tickLabel = createCueLabel()
-    tickLabel.text = "\u{2713}"
-    tickLabel.textAlignment = .Right
-    
-    crossLabel = createCueLabel()
-    crossLabel.text = "\u{2717}"
-    crossLabel.textAlignment = .Left
-
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     
     addSubview(label)
@@ -70,9 +80,6 @@ class TableViewCell: UITableViewCell {
     
     initializeGradientLayer()
     
-    itemCompleteLayer = CALayer(layer: layer)
-    itemCompleteLayer.backgroundColor = UIColor(red: 0.0, green: 0.6, blue: 0.0, alpha: 1.0).CGColor
-    itemCompleteLayer.hidden = true
     layer.insertSublayer(itemCompleteLayer, atIndex: 0)
     
     initializePanGestureRecognizer()
