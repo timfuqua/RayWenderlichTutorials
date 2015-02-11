@@ -18,16 +18,16 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="8F6-og-DLq">
-                                <rect key="frame" x="16" y="0.0" width="568" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="8F6-og-DLq" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="AMM-Vx-oi3"/>
                             <constraint firstItem="8F6-og-DLq" firstAttribute="bottom" secondItem="kh9-bI-dsS" secondAttribute="bottomMargin" id="JfD-Y9-3KV"/>
-                            <constraint firstItem="8F6-og-DLq" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="VBv-Ua-Aof"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="8F6-og-DLq" secondAttribute="trailing" id="boI-NC-pGx"/>
                             <constraint firstItem="8F6-og-DLq" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="topMargin" id="oQP-QF-pNc"/>
+                            <constraint firstAttribute="trailing" secondItem="8F6-og-DLq" secondAttribute="trailing" id="x7R-wZ-0gp"/>
                         </constraints>
                     </view>
                     <connections>

@@ -75,10 +75,13 @@ extension ViewController: UITableViewDataSource {
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as TableViewCell
     cell.selectionStyle = UITableViewCellSelectionStyle.None
-    cell.textLabel?.backgroundColor = UIColor.clearColor()
+//    cell.textLabel?.backgroundColor = UIColor.clearColor()
     
     let item = toDoItems[indexPath.row]
-    cell.textLabel?.text = item.text
+//    cell.textLabel?.text = item.text
+    
+    cell.delegate = self
+    cell.toDoItem = item
     
     return cell
   }
@@ -93,3 +96,22 @@ extension ViewController: UITableViewDelegate {
   }
   
 }
+
+extension ViewController: TableViewCellDelegate {
+  func toDoItemDeleted(todoItem: ToDoItem) {
+    let index = (toDoItems as NSArray).indexOfObject(todoItem)
+
+    if index == NSNotFound {
+      return
+    }
+    
+    toDoItems.removeAtIndex(index)
+    
+    tableView.beginUpdates()
+    let indexPathForRow = NSIndexPath(forRow: index, inSection: 0)
+    tableView.deleteRowsAtIndexPaths([indexPathForRow], withRowAnimation: .Fade)
+    tableView.endUpdates()
+  }
+
+}
+
