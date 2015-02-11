@@ -21,6 +21,8 @@ class TableViewCell: UITableViewCell {
   var deleteOnDragRelease = false
   var completeOnDragRelease = false
   
+  var tickLabel: UILabel, crossLabel: UILabel
+  
   let label: StrikeThroughText
   let itemCompleteLayer = CALayer()
   
@@ -43,9 +45,27 @@ class TableViewCell: UITableViewCell {
     label.font = UIFont.boldSystemFontOfSize(16)
     label.backgroundColor = UIColor.clearColor()
     
+    func createCueLabel() -> UILabel {
+      let label = UILabel(frame: CGRect.nullRect)
+      label.textColor = UIColor.whiteColor()
+      label.font = UIFont.boldSystemFontOfSize(32.0)
+      label.backgroundColor = UIColor.clearColor()
+      return label
+    }
+    
+    tickLabel = createCueLabel()
+    tickLabel.text = "\u{2713}"
+    tickLabel.textAlignment = .Right
+    
+    crossLabel = createCueLabel()
+    crossLabel.text = "\u{2717}"
+    crossLabel.textAlignment = .Left
+
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     
     addSubview(label)
+    addSubview(tickLabel)
+    addSubview(crossLabel)
     selectionStyle = .None
     
     initializeGradientLayer()
@@ -59,18 +79,15 @@ class TableViewCell: UITableViewCell {
   }
   
   let kLabelLeftMargin: CGFloat = 15.0
+  let kUICuesMargin: CGFloat = 10.0
+  let kUICuesWidth: CGFloat = 50.0
   override func layoutSubviews() {
     super.layoutSubviews()
     initializeGradientLayerFrame()
     itemCompleteLayer.frame = bounds
     label.frame = CGRect(x: kLabelLeftMargin, y: 0, width: bounds.size.width - kLabelLeftMargin, height: bounds.size.height)
-  }
-  
-  private func initializeItemCompleteLayer() {
-//    itemCompleteLayer = CALayer(layer: layer)
-    itemCompleteLayer.backgroundColor = UIColor(red: 0.0, green: 0.6, blue: 0.0, alpha: 1.0).CGColor
-    itemCompleteLayer.hidden = true
-    layer.insertSublayer(itemCompleteLayer, atIndex: 0)
+    tickLabel.frame = CGRect(x: -kUICuesWidth - kUICuesMargin, y: 0, width: kUICuesWidth, height: bounds.size.height)
+    crossLabel.frame = CGRect(x: bounds.size.width + kUICuesMargin, y: 0, width: kUICuesWidth, height: bounds.size.height)
   }
   
   private func initializeGradientLayerFrame() {
@@ -105,7 +122,14 @@ class TableViewCell: UITableViewCell {
       let translation = recognizer.translationInView(self)
       center = CGPointMake(originalCenter.x + translation.x, originalCenter.y)
       deleteOnDragRelease = frame.origin.x < -frame.size.width / 2.0
-      completeOnDragRelease = frame.origin.x > -frame.size.width / 2.0
+      completeOnDragRelease = frame.origin.x > frame.size.width / 2.0
+      
+      let cueAlpha = fabs(frame.origin.x) / (frame.size.width / 2.0)
+      tickLabel.alpha = cueAlpha
+      crossLabel.alpha = cueAlpha
+      
+      tickLabel.textColor = completeOnDragRelease ? UIColor.greenColor() : UIColor.whiteColor()
+      crossLabel.textColor = deleteOnDragRelease ? UIColor.redColor() : UIColor.whiteColor()
     }
     
     if recognizer.state == .Ended {
