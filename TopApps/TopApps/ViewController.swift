@@ -14,6 +14,11 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    loadJSONStandard()
+    loadJSONSwifty()
+  }
+  
+  private func loadJSONStandard() {
     DataManager.getTopAppsDataFromFileWithSuccess { (data) -> Void in
       
       var parseError: NSError?
@@ -36,5 +41,16 @@ class ViewController: UIViewController {
       }
     }
   }
+  
+  private func loadJSONSwifty() {
+    DataManager.getTopAppsDataFromFileWithSuccess { (data) -> Void in
+
+      let json = JSON(data: data)
+      if let appName = json["feed"]["entry"][0]["im:name"]["label"].string {
+        println("SwiftyJSON: \(appName)")
+      }
+    }
+  }
+  
 }
 

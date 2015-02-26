@@ -15,6 +15,7 @@
 		9240068619CABF0A00371784 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9240068319CABF0A00371784 /* AppModel.swift */; };
 		9240068719CABF0A00371784 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9240068419CABF0A00371784 /* DataManager.swift */; };
 		9240068A19CABF1F00371784 /* TopApps.json in Resources */ = {isa = PBXBuildFile; fileRef = 9240068919CABF1F00371784 /* TopApps.json */; };
+		C4D133C91A9F9AB0005FA419 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D133C81A9F9AB0005FA419 /* SwiftyJSON.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		9240068319CABF0A00371784 /* AppModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		9240068419CABF0A00371784 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		9240068919CABF1F00371784 /* TopApps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TopApps.json; sourceTree = "<group>"; };
+		C4D133C81A9F9AB0005FA419 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 		9240066019CABECA00371784 /* TopApps */ = {
 			isa = PBXGroup;
 			children = (
+				C4D133C81A9F9AB0005FA419 /* SwiftyJSON.swift */,
 				9240068919CABF1F00371784 /* TopApps.json */,
 				9240066319CABECA00371784 /* AppDelegate.swift */,
 				02753C6A19E63FEF00208E21 /* ViewController.swift */,
@@ -221,6 +224,7 @@
 				02753C6B19E63FEF00208E21 /* ViewController.swift in Sources */,
 				9240068619CABF0A00371784 /* AppModel.swift in Sources */,
 				9240066419CABECA00371784 /* AppDelegate.swift in Sources */,
+				C4D133C91A9F9AB0005FA419 /* SwiftyJSON.swift in Sources */,
 				9240068719CABF0A00371784 /* DataManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
