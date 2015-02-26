@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     
     loadJSONStandard()
     loadJSONSwifty()
+    loadJSONSwiftyFromItunes()
   }
   
   private func loadJSONStandard() {
@@ -46,8 +47,33 @@ class ViewController: UIViewController {
     DataManager.getTopAppsDataFromFileWithSuccess { (data) -> Void in
 
       let json = JSON(data: data)
+      
       if let appName = json["feed"]["entry"][0]["im:name"]["label"].string {
         println("SwiftyJSON: \(appName)")
+      }
+    }
+  }
+  
+  private func loadJSONSwiftyFromItunes() {
+    DataManager.getTopAppsDataFromeItunesWithSuccess { (iTunesData) -> Void in
+      let json = JSON(data: iTunesData)
+      
+      if let appName = json["feed"]["entry"][0]["im:name"]["label"].string {
+        println("NSURLSession: \(appName)")
+      }
+      
+      if let appArray = json["feed"]["entry"].array {
+        var apps = [AppModel]()
+        
+        for appDict in appArray {
+          var appName: String? = appDict["im:name"]["label"].string
+          var appURL: String? = appDict["im:image"][0]["label"].string
+          
+          var app = AppModel(name: appName, appStoreURL: appURL)
+          apps.append(app)
+        }
+        
+        println(apps)
       }
     }
   }
