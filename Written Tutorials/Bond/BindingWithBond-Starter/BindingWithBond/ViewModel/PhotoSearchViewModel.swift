@@ -38,6 +38,14 @@ class PhotoSearchViewModel {
     searchString
       .map { $0!.length() > 3 }
       .bindTo(validSearchText)
+    
+    combineLatest(searchMetadataViewModel.dateFilter, searchMetadataViewModel.maxUploadDate
+      , searchMetadataViewModel.minUploadDate, searchMetadataViewModel.creativeCommons)
+      .throttle(0.5, queue: Queue.Main)
+      .observe {
+        [unowned self] _ in
+        self.executeSearch(self.searchString.value!)
+    }
   }
   
   func executeSearch(text: String) {
